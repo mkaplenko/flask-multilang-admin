@@ -1,0 +1,24 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+    <h1>Admin edit</h1>
+    <form action="" method="post">
+        {% for field in form %}
+            {{ field.name }}
+            {{ render_field(field) }}
+        {% endfor %}
+        <input type="submit" value="Отправить"/>
+    </form>
+{% endblock %}
+{% macro render_field(field) %}
+    {% if field.type != 'CSRFTokenField' %}
+    <label for="{{ field.name }}">{{ field.label }}</label>
+    {{ field }}
+    {% if field.errors %}
+        <ul class="errors">
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endif %}
+{% endmacro %}
